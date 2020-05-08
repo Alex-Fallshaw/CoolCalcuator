@@ -3,7 +3,7 @@ import re
 
 sg.theme('DarkTeal4')	# Add a touch of colour
 
-re_numbers = re.compile(r"^\d+(\.\d+)?$")
+re_numbers = re.compile(r"^-?\d+(\.\d+)?$")
 
 # Strings
 exit_button_text = 'Leave' 
@@ -14,7 +14,8 @@ layout = [  [sg.Text('Quadratic-o-matic')],
             [sg.Text('Input your quadratic:'), sg.InputText(size=(5,1), key='paramA'),
              sg.Text('x^2 +'), sg.InputText(size=(5,1), key='paramB'),
              sg.Text('x +'), sg.InputText(size=(5,1), key='paramC')],
-            [sg.Text('This is where the discriminant will show.', size=(100,1), key="sumText")],
+            [sg.Text('This is where the discriminant will show.', size=(100,1), key='sumText')],
+            [sg.Text('This is where the turning point will show.', size=(100,1), key='tpText')],
             [sg.Button(calculate_button_text), sg.Button(exit_button_text)] ]
 
 # Create the Window
@@ -27,9 +28,12 @@ while True:
         break
     if re.match(re_numbers, values['paramA']) and re.match(re_numbers, values['paramB']) and re.match(re_numbers, values['paramC']):
         params={'a': float(values['paramA']), 'b': float(values['paramB']), 'c': float(values['paramC'])}
-        discrim=params['a']**2.0 - 4.0*params['b']*params['c']
-        window["sumText"].update('The discriminant is ' + str(discrim))
+        discrim=params['b']**2.0-4.0*params['a']*params['c']
+        turnpx=(-params['b'])/(2.0*params['a'])
+        turnpy=params['c']-(params['b']**2)/4*params['a']
+        window['sumText'].update('The discriminant is ' + str(discrim) + '.')
+        window['tpText'].update('The turning point is (' + str(turnpx) + ', ' + str(turnpy) + ').')
     else:
-        window["sumText"].update('Give me real numbers, stupid.')
+        window['sumText'].update('Give me real numbers, stupid.')
 
 window.close()
