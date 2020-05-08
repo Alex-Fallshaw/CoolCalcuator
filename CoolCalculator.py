@@ -45,6 +45,7 @@ window = sg.Window('Quadratic-o-matic', layout)
 # Event Loop to process "events" and get the "values" of the inputs
 
 
+
 while True:
     event, values = window.read()
     if event in (None, exit_button_text):	# if user closes window or clicks cancel
@@ -71,5 +72,6 @@ while True:
     else:
         window['errorCorrectText'].update('Those aren\'t integers or deciamls!')
         errorCount = 1
+
 
 window.close()
