@@ -21,7 +21,7 @@ def valid_range_and_domain(values):
     return (values['range1']=='' or re.match(re_numbers, values['range1'])) and (values['range2']=='' or re.match(re_numbers, values['range2'])) and (values['domain1']=='' or re.match(re_numbers, values['domain1'])) and (values['domain2']=='' or re.match(re_numbers, values['domain2']))
 
 def tp_in_range_and_domain(params, turnpx, turnpy):
-    return (turnpx < params['d1'] or params['d1']==None) or (turnpx > params['d2'] or params['d2']==None) or (turnpy < params['r1'] or params['r1']==None) or (turnpy > params['r2'] or params['r2']==None)
+    return (params['d1']==None or turnpx < params['d1']) and (params['d2']==None or turnpx > params['d2']) and (params['r1']==None or turnpy < params['r1']) and (params['r2']==None or turnpy > params['r2'])
 
 # All the stuff inside your window.
 layout = [  [sg.Text('Quadratic-o-matic', font='helvetica 20')],
