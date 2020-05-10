@@ -13,15 +13,15 @@ def valid_int_or_dec(values):
 
 def float_or_none(value):
     try:
-        float(value)
+        return float(value)
     except:
-        None
+        return None
 
 def valid_range_and_domain(values):
     return (values['range1']=='' or re.match(re_numbers, values['range1'])) and (values['range2']=='' or re.match(re_numbers, values['range2'])) and (values['domain1']=='' or re.match(re_numbers, values['domain1'])) and (values['domain2']=='' or re.match(re_numbers, values['domain2']))
 
 def tp_in_range_and_domain(params, turnpx, turnpy):
-    return (params['d1']==None or turnpx < params['d1']) and (params['d2']==None or turnpx > params['d2']) and (params['r1']==None or turnpy < params['r1']) and (params['r2']==None or turnpy > params['r2'])
+    return (params['d1']==None or turnpx > params['d1']) and (params['d2']==None or turnpx < params['d2']) and (params['r1']==None or turnpy > params['r1']) and (params['r2']==None or turnpy < params['r2'])
 
 # All the stuff inside your window.
 layout = [  [sg.Text('Quadratic-o-matic', font='helvetica 20')],
@@ -66,7 +66,8 @@ while True:
         if valid_range_and_domain(values):
             window['tpText'].update('Turning point: (' + str(turnpx) + ', ' + str(turnpy) + ')')
         else:
-            window['errorCorrectText'].update('Make sure your range and domain are integers, decimals or blank.')
+            window['errorCorrectText'].update('Make sure your range and domain are integers, decimals or blank.') 
+        print(params, turnpx, turnpy, tp_in_range_and_domain(params, turnpx, turnpy))   
         if not tp_in_range_and_domain(params, turnpx, turnpy):
             window['tpText'].update('Turning point: (' + str(turnpx) + ', ' + str(turnpy) + '), but it falls outside the range or domain.')
     else:
